@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Encode+Sans+Condensed");
+
+body {
+    margin-top: 3%;
+    font-family: "Encode Sans Condensed", sans-serif;
+    font-size: 18px;
+}
+
+.boldLine {
+    border-width: 4px;
+}
+
+button[type="submit"] {
+    width: 38%;
+}
