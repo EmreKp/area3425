@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/css3425.css"/>
+    <title>Project Area3425</title>
+</head>
+<body>
+<div class="container">
+    <h1 >area 3425</h1>
+    <p id="description">
+        this is your free writing and shouting board. you can freely discharge yourself here..
+    </p>
+        <!-- burası geçici bir tanım devamını getir -->
+    <hr class="boldLine"/>
+    <div id="messages" th:unless="${posts.isEmpty()}">
+        <div th:each="post : ${posts}">
+            <h3 th:text="${post.title != '' ? post.title : '(no title)'}">title</h3>
+            <p th:text="${post.message}">message</p>
+            <p class="text-right small" th:text="|(${post.nick + ', '
+            + #dates.format(post.postedDate, 'dd.MM.yyyy HH:mm')})|"></p>
+            <hr th:if="${posts.indexOf(post) != posts.size() - 1}"/>
+            <!--/* check if we are in end of list */-->
+        </div>
+    </div>
+    <p th:if="${posts.isEmpty()}">no messages ever..</p>
+    <hr class="boldLine"/>
+    <!-- mesaj alanı yap -->
+    <form method="post" th:action="@{/send}" th:object="${post}">
+        <div class="form-group row">
+            <label for="nick" class="col-sm-3 col-form-label">nick:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" th:field="*{nick}" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-3 col-form-label">title:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control"
+                       th:field="*{title}" placeholder="(optional)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="message" class="col-sm-3 col-form-label">message:</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" th:field="*{message}" required></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 text-center">
+                <button type="submit" class="btn btn-success">Send Post</button>
+            </div>
+        </div>
+    </form>
+    <footer class="text-center small">emre inc. last 2018</footer>
+</div>
+</body>
+</html>
